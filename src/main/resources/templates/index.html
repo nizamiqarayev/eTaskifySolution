@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+          integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+    <title>Document</title>
+</head>
+<body>
+<table class="u-full-width">
+    <thead>
+    <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${employees.isEmpty()}">
+        <td colspan="2"> No Users Available</td>
+    </tr>
+    <a class="button" href="/" roles="button" style="color:azure;background-color:purple;"
+       th:href="@{/addEmployeeForm}">Add Employee</a>
+    <tr th:each="employee : ${employees}">
+
+        <td><span th:text="${employee.firstName}"> firstName </span></td>
+
+        <td><span th:text="${employee.lastName}"> lastName </span></td>
+        <!--              <td><a href="/" th:href="@{'/edit/'+${employee.id}}" roles="button"> edit </a></td>-->
+        <!--              <td><a href="/" th:href="@{'/delete/'+${employee.id}}" roles="button"> delete </a></td>-->
+        <!--            <td>Dave Gamache</td>-->
+        <!--            <td>26</td>-->
+        <td><a class="button button-primary" href="/" roles="button" th:href="@{'/edit/'+${employee.id}}">Edit</a></td>
+        <td><a class="button" href="/" roles="button" style="color:azure;background-color:red;"
+               th:href="@{'/delete/'+${employee.id}}">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+<table class="u-full-width">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>Add Employee To the Task</th>
+        <th>View Employees For This Task</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${tasks.isEmpty()}">
+        <td colspan="2"> No Users Available</td>
+    </tr>
+    <a class="button" href="/" roles="button" style="color:azure;background-color:purple;" th:href="@{/addTaskForm}">Add
+        Task</a>
+    <tr th:each="task : ${tasks}">
+
+        <td><span th:text="${task.Name}"> Name </span></td>
+
+        <td><span th:text="${task.Description}"> Description </span></td>
+        <td><a class="button button-primary" href="/" roles="button" th:href="@{'/edit-task/'+${task.id}}">Edit</a></td>
+        <td><a class="button" href="/" roles="button" style="color:azure;background-color:red;"
+               th:href="@{'/delete-task/'+${task.id}}">Delete</a></td>
+        <td><a class="button" href="/" roles="button" style="color:black;background-color:yellow;"
+               th:href="@{'/add-employee-totask-form/'+${task.id}}"> Add Employee To the Task</a></td>
+        <td><a class="button" href="/" roles="button" style="color:azure;background-color:green;"
+               th:href="@{'/viewtaskemployees/'+${task.id}}">View Employees For This Task</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

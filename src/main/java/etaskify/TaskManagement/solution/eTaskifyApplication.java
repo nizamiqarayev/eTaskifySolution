@@ -1,13 +1,13 @@
-package eTaskify.task.solution;
+package etaskify.TaskManagement.solution;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SolutionApplication {
+public class eTaskifyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SolutionApplication.class, args);
+		SpringApplication.run(eTaskifyApplication.class, args);
 	}
 
 }

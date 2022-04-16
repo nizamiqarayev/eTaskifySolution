@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Employees assigned to this app</title>
+
+  <link crossorigin="anonymous"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        rel="stylesheet">
+
+</head>
+<body>
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button aria-controls="navbar" aria-expanded="false"
+              class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse"
+              type="button">
+        <span class="sr-only">Toggle navigation</span> <span
+              class="icon-bar"></span> <span class="icon-bar"></span> <span
+              class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" th:href="@{/}"><span sec:authentication="principal.username">User</span></a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="nav navbar-nav">
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<br>
+<br>
+
+<div class="container">
+  <h1>Employees</h1>
+  <table>
+    <tr th:if="${employees.isEmpty()}">
+      <td colspan="2"> No Users Available</td>
+    </tr>
+    <tr th:each="employee : ${employees}">
+      <td><span th:text="${employee.firstName}"> firstName </span></td>
+
+      <td><span th:text="${employee.lastName}"> lastName </span></td>
+      <td><a href="/" roles="button" th:href="@{'/taskemployeedelete/'+${taskid}+'/'+${employee.id}}"> delete </a></td>
+
+    </tr>
+  </table>
+</div>
+</body>
+</html>

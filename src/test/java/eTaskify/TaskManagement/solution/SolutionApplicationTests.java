@@ -1,4 +1,4 @@
-package eTaskify.task.solution;
+package eTaskify.TaskManagement.solution;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
