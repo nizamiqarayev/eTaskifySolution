@@ -62,19 +62,30 @@ public class TaskServiceImpl implements TaskService {
             return new ResourceNotFoundException("Task", "Id", taskid);
         });
         try {
-            String[] idsString = existingTask.getEmployees().split("");
-            List<Long> idList = new ArrayList<>();
-            try {
-                for (int i = 0; i < idsString.length; i++) {
-                    idList.add(Long.parseLong(idsString[i]));
+            if (existingTask.getEmployees() == "") {
+                String temp = existingTask.getEmployees() + employeeid + ",";
+                existingTask.setEmployees(temp);
+                System.out.println(existingTask);
+            } else {
+                String[] idsString = existingTask.getEmployees().split("\\,");
+                List<Long> idList = new ArrayList<>();
+                for (String s :
+                        idsString) {
+                    System.out.println("Bs: " + s);
+
                 }
-                idList.add(employeeid);
-                String newEmployeeList = StringUtils.join(idList, "");
-                existingTask.setEmployees(newEmployeeList);
-            } catch (NumberFormatException e) {
-                System.out.println("InvalidFormat");
-                String[] temparray = existingTask.getEmployees().split("");
-                System.out.println(Arrays.toString(temparray));
+                try {
+                    for (int i = 0; i < idsString.length; i++) {
+                        idList.add(Long.parseLong(idsString[i]));
+                    }
+                    idList.add(employeeid);
+                    String newEmployeeList = StringUtils.join(idList, ",");
+                    existingTask.setEmployees(newEmployeeList);
+                } catch (NumberFormatException e) {
+                    System.out.println("InvalidFormat");
+                    String[] temparray = existingTask.getEmployees().split("\\,");
+                    System.out.println(Arrays.toString(temparray));
+                }
             }
 
         } catch (NullPointerException e) {
@@ -93,13 +104,13 @@ public class TaskServiceImpl implements TaskService {
             return new ResourceNotFoundException("Task", "Id", taskid);
         });
         try {
-            String[] idsString = existingTask.getEmployees().split("");
+            String[] idsString = existingTask.getEmployees().split("\\,");
             List<Long> idList = new ArrayList<>();
             for (int i = 0; i < idsString.length; i++) {
                 idList.add(Long.valueOf(idsString[i]));
             }
             idList.remove(employeeid);
-            String newEmployeeList = StringUtils.join(idList, "");
+            String newEmployeeList = StringUtils.join(idList, ",");
             existingTask.setEmployees(newEmployeeList);
         } catch (NullPointerException e) {
 
@@ -123,7 +134,7 @@ public class TaskServiceImpl implements TaskService {
         List<Employee> returnList = new ArrayList<>();
         try {
             existingTask.getEmployees();
-            String[] idsString = existingTask.getEmployees().split("");
+            String[] idsString = existingTask.getEmployees().split("\\,");
             List<Long> idList = new ArrayList<>();
             for (int i = 0; i < idsString.length; i++) {
                 returnList.add(managementService.getEmployeeById(Long.valueOf(idsString[i])));
